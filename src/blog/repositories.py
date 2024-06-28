@@ -27,7 +27,7 @@ class MemoryUsersRepository(UsersRepository):
         for user in self.users:
             if user_name is not None and user.user_name != user_name:
                 continue
-            if password is not NOne and user.password != password:
+            if password is not None and user.password != password:
                 continue
             filtered_users.append(user)
         return filtered_users
@@ -36,7 +36,7 @@ class MemoryUsersRepository(UsersRepository):
 class ArticlesRepository(ABC):
 
     @abstractmethod
-    def get_articles(self) -> list[Articles]:
+    def get_articles(self) -> list[Article]:
         pass
 
     @abstractmethod
@@ -48,11 +48,10 @@ class ShelveArticlesRepository(ArticlesRepository):
     def __init__(self):
         self.db_name = "articles"
 
-        def get_articles(self) -> list[Article]:
-            with shelve.open(self.db_name) as db:
-                return list(db.values())
+    def get_articles(self) -> list[Article]:
+        with shelve.open(self.db_name) as db:
+            return list(db.values())
 
-        def create_article(self, article: Article):
-            with shelve.open(self.db_name) as db:
-                db[article.id] = acrticle
-
+    def create_article(self, article: Article):
+        with shelve.open(self.db_name) as db:
+            db[article.id] = article

@@ -20,5 +20,6 @@ class LoginModel(BaseModel):
     user_name: str
     password: str
 
+
 class ErrorModel(BaseModel):
     detail: str

@@ -1,13 +1,13 @@
-from dataclassses import dataclass
+from dataclasses import dataclass
 
 
 @dataclass
-def User:
+class User:
     id: str = None
 
 
 @dataclass
-def Admin:
+class Admin(User):
     user_name: str = None
     password: str = None
 
